@@ -1,0 +1,25 @@
+console.log('Firebase Configuration Test:');
+console.log('API Key:', import.meta.env.VITE_FIREBASE_API_KEY ? '✅ Found' : '❌ Missing');
+console.log('Auth Domain:', import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ? '✅ Found' : '❌ Missing');
+console.log('Project ID:', import.meta.env.VITE_FIREBASE_PROJECT_ID ? '✅ Found' : '❌ Missing');
+console.log('App ID:', import.meta.env.VITE_FIREBASE_APP_ID ? '✅ Found' : '❌ Missing');
+
+// Try to initialize Firebase
+import { initializeApp } from 'firebase/app';
+
+try {
+  const firebaseConfig = {
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  };
+
+  const app = initializeApp(firebaseConfig);
+  console.log('✅ Firebase initialized successfully!');
+} catch (error) {
+  console.error('❌ Firebase initialization failed:', error);
+}
