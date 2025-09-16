@@ -86,4 +86,17 @@ Desktop.ini
 *.swp
 *.bak
 *.tmp
-.python_packages
+.python_packages# frontend build/dev artifacts
+frontend/.vite/
+frontend/dist/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# env and local config
+.env
+.env.local
+
+# general
+.DS_Store
+.vscode/

@@ -46,6 +46,16 @@ export default function NavBar() {
     }
   };
 
+  // Management link - only accessible when logged in
+  const handleManagementClick = () => {
+    if (!user) {
+      handleSignIn();
+    } else {
+      setMenuOpen(false);
+      navigate("/management"); // route mapped to your DashPage; change if you use a different path
+    }
+  };
+
   // Motion variants
   const menuVariants = {
     hidden: { opacity: 0, y: -8 },
@@ -108,6 +118,26 @@ export default function NavBar() {
             >
               Dashboard
             </motion.div>
+
+            {/* Management: only when logged in */}
+            {!loading && user && (
+              <motion.div
+                whileHover={!reduceMotion ? { scale: 1.1, color: "#4f46e5" } : {}}
+                whileTap={{ scale: 0.95 }}
+                className="cursor-pointer px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
+                onClick={handleManagementClick}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleManagementClick();
+                  }
+                }}
+                role="link"
+                aria-label="Management"
+              >
+                Management
+              </motion.div>
+            )}
           </div>
 
           {/* Right actions (desktop) */}
@@ -205,6 +235,19 @@ export default function NavBar() {
                   }}
                 />
               </motion.div>
+
+              {/* Management mobile item (only when logged in) */}
+              {!loading && user && (
+                <motion.div variants={itemVariants}>
+                  <MobileDashboardItem
+                    label="Management"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      handleManagementClick();
+                    }}
+                  />
+                </motion.div>
+              )}
 
               {!loading && user ? (
                 <>
