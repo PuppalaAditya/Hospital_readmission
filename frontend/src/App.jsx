@@ -1,3 +1,5 @@
+// src/App.jsx
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase/config';
@@ -10,7 +12,8 @@ import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import DashboardPage from './pages/DashboardPage';
-import AboutPage from './pages/AboutPage';;
+import DashPage from './pages/DashPage'; // <-- Management / DashPage
+import AboutPage from './pages/AboutPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import FirebaseTest from './components/FirebaseTest';
 import './index.css';
@@ -39,9 +42,16 @@ function App() {
               <Route path="/sign-up" element={<SignUpPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
               <Route path="/test-firebase" element={<FirebaseTest />} />
-              <Route path="*" element={<div>404 - Page Not Found</div>} />
-              <Route path="/dashboard" element={<DashboardPage />} />
+
+              {/* Public pages */}
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+
+              {/* Management (DashPage) - route used by NavBar Management link */}
+              <Route path="/management" element={<DashPage />} />
+
+              {/* fallback */}
+              <Route path="*" element={<div className="p-8">404 - Page Not Found</div>} />
             </Routes>
           </main>
           <Footer />
